@@ -1,13 +1,38 @@
 {
-  "extends": "../tsconfig.json",
+  "compileOnSave": false,
+  "buildOnSave": false,
   "compilerOptions": {
-    "outDir": "../out-tsc/app",
-    "baseUrl": "./",
+    "baseUrl": "",
+    "target": "es5",
     "module": "es2015",
-    "types": []
+    "moduleResolution": "node",
+    "declaration": false,
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./build",
+    "rootDir": ".",
+    "skipLibCheck": true,
+    "typeRoots": ["./node_modules/@types"],
+    "types": [
+      "node", "lodash", "jasmine"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "paths": {
+      "@main/*": ["app/main/*"],
+      "@core/*": ["app/core/*"],
+      "@shared/*": ["app/shared/*"],
+      "@user/*": ["app/user/*"],
+      "@dashboard/*": ["app/dashboard/*"]
+    }
   },
   "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
+    "node_modules",
+    "dist"
   ]
 }

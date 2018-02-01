@@ -4,5 +4,9 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  APP: {
+    API_HOST: 'https://api.amalyze.com/0.0.12'
+  },
 };
+

@@ -1,0 +1,11 @@
+<div class="app--messages" *ngIf="messages && messages.length">
+    <div class="app--message"
+         *ngFor="let message of messages"
+         [ngClass]="{ 'shown': message.visible, 'hidden': !message.visible }">
+        <div class="alert"
+             [ngClass]="{ 'alert-success': message.type == 'SUCCESS', 'alert-info': message.type == 'INFO', 'alert-warning': message.type == 'WARNING', 'alert-danger': message.type == 'DANGER' }">
+            <span>{{ message.text }}</span>
+            <i (click)="remove(message)">X</i>
+        </div>
+    </div>
+</div>

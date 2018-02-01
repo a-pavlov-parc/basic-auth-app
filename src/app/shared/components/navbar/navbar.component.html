@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
+                    <a class="nav-link" [routerLink]="['/dashboard']">Dashboard</a>
+                </li>
+
+                <ng-container *ngIf="userIsOwner$ | async">
+                    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
+                        <a class="nav-link" [routerLink]="['/owner/trainings/']">Owner trainings</a>
+                    </li>
+                </ng-container>
+
+                <li class="nav-item">
+                    <a class="nav-link" (click)="logout()">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
