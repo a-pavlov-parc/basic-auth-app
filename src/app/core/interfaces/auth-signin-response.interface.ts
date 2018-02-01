@@ -1,3 +1,5 @@
+import { IUser } from '../../user/interfaces';
+
 export interface IAuthSignInResponse {
-    token: string;
+    user: IUser;
 }

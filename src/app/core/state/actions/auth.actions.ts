@@ -1,9 +1,8 @@
 import { Action } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { typeCacheUtil } from '../../../shared/utilities/type-cache.util';
-import { IAuthSignInResponse, IAuthSignInRequest, IAuthSignUpRequest } from '../../interfaces';
-import { IUser } from '../../../user/interfaces';
+import { typeCacheUtil } from '@shared/utilities/type-cache.util';
+import { IAuthSignInResponse, IAuthSignInRequest } from '../../interfaces';
 
 /**
  * For each action type in an action group, make a simple

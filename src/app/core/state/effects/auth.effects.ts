@@ -35,8 +35,11 @@ export class AuthEffects {
 
     @Effect() loginSuccess$: Observable<Action> = this.actions$
         .ofType(fromAuthActions.authActionTypes.AUTH_LOGIN_SUCCESS)
-        .map((action: fromAuthActions.AuthLoginSuccessAction) => action.payload.token)
-        .map((token: string) => new fromAuthActions.AuthSetTokenAction(token))
+        .mergeMap((action: fromAuthActions.AuthLoginSuccessAction) => {
+            return [
+                new fromUserActions.UserLoadCurrentUserSuccess(action.payload.user),
+            ];
+        })
         .do(() => {
             this.router.navigate(['/dashboard']);
         });

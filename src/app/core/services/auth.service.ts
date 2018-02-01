@@ -7,8 +7,8 @@ import { isEmpty } from 'lodash';
 
 import * as authActions from '../state/actions/auth.actions';
 import * as fromAuthActions from '../../core/state/actions/auth.actions';
-import { AuthLoginFailAction, AuthSignUpFailAction } from '../state/actions/auth.actions';
-import { IAuthSignInRequest, IAuthSignUpRequest } from '../interfaces';
+import { AuthLoginFailAction } from '../state/actions/auth.actions';
+import { IAuthSignInRequest } from '../interfaces';
 import { UserService } from '@user/services/user.service';
 
 @Injectable()

@@ -10,12 +10,6 @@
                     <a class="nav-link" [routerLink]="['/dashboard']">Dashboard</a>
                 </li>
 
-                <ng-container *ngIf="userIsOwner$ | async">
-                    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
-                        <a class="nav-link" [routerLink]="['/owner/trainings/']">Owner trainings</a>
-                    </li>
-                </ng-container>
-
                 <li class="nav-item">
                     <a class="nav-link" (click)="logout()">Logout</a>
                 </li>

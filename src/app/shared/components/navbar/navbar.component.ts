@@ -11,13 +11,7 @@ import { UserService } from '@user/services/user.service';
     encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent {
-    userIsOwner$: Observable<boolean> = this.userService.userIsOwner$;
-    userIsStudent$: Observable<boolean> = this.userService.userIsStudent$;
-
-    constructor(
-        private authService: AuthService,
-        private userService: UserService
-    ) {}
+    constructor(private authService: AuthService) {}
 
     logout() {
         this.authService.logout();
