@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
 import { isEmpty } from 'lodash';
 
-import { storageAuthTokenField } from '../core.constants';
+import { storageAuthTokenField, storageXsrfTokenField } from '../core.constants';
 
 @Injectable()
 export class TokenService {
@@ -22,5 +22,10 @@ export class TokenService {
 
     remove() {
         this.localStorageService.remove(storageAuthTokenField);
+    }
+
+    setTokens({ falkonToken, xsrfToken }) {
+        this.localStorageService.set(storageAuthTokenField, falkonToken);
+        this.localStorageService.set(storageXsrfTokenField, xsrfToken);
     }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { includes, some, isEmpty } from 'lodash';
 
@@ -16,7 +16,17 @@ export class AuthTokenInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (some(this.blackList, item => includes(request.url, `${item}`))) {
-            return next.handle(request);
+            return next.handle(request)
+                .do((response: any) => {
+                    if (response instanceof HttpResponse) {
+                        const falkonToken = response.headers.get('X-FALCON-TOKEN');
+                        const xsrfToken = response.headers.get('X-FALCON-TOKEN');
+
+                        if (!isEmpty(falkonToken) && !isEmpty(xsrfToken)) {
+                            this.tokenService.setTokens({ falkonToken, xsrfToken });
+                        }
+                    }
+                });
         } else {
             const token = this.tokenService.token;
 

@@ -35,13 +35,13 @@ export class AuthEffects {
 
     @Effect() loginSuccess$: Observable<Action> = this.actions$
         .ofType(fromAuthActions.authActionTypes.AUTH_LOGIN_SUCCESS)
+        .do(() => {
+            this.router.navigate(['/dashboard']);
+        })
         .mergeMap((action: fromAuthActions.AuthLoginSuccessAction) => {
             return [
                 new fromUserActions.UserLoadCurrentUserSuccess(action.payload.user),
             ];
-        })
-        .do(() => {
-            this.router.navigate(['/dashboard']);
         });
 
     @Effect({ dispatch: false }) setToken$: Observable<any> = this.actions$
