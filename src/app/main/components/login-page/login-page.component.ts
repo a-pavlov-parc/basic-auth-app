@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RecaptchaComponent } from 'ng-recaptcha/recaptcha/recaptcha.component';
+import { RecaptchaComponent } from 'ng-recaptcha';
 import * as md5 from 'md5';
 
 import { AuthService } from '../../../core/services/auth.service';

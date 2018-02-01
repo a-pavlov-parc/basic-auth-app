@@ -9,4 +9,3 @@ export const environment = {
     API_HOST: 'https://api.amalyze.com/0.0.12'
   },
 };
-
