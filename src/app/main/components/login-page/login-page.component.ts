@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RecaptchaComponent } from 'ng-recaptcha';
+import { isEmpty } from 'lodash';
 import * as md5 from 'md5';
 
 import { AuthService } from '../../../core/services/auth.service';
@@ -29,30 +30,32 @@ export class LoginPageComponent extends IsDestroyedMixin implements OnInit {
     ngOnInit() {
         this.form = this.formBuilder.group({
             username: ['', Validators.required],
-            passwordMd5: ['', Validators.required]
+            password: ['', Validators.required]
         });
     }
 
     login(captchaResponse: string) {
-        this.formSubmitted = true;
+        if (!isEmpty(captchaResponse)) {
+            this.formSubmitted = true;
 
-        if (this.form.valid) {
-            this.authService.login(Object.assign({}, this.form.value, {
-                passwordMd5: md5(this.form.value.passwordMd5),
-                captcha: captchaResponse
-            }));
+            if (this.form.valid) {
+                this.authService.login(Object.assign({}, this.form.value, {
+                    passwordMd5: md5(this.form.value.password),
+                    captcha: captchaResponse
+                }));
 
-            this.isLoading = true;
+                this.isLoading = true;
 
-            this.authService.loggedInFailure$
-                .take(1)
-                .takeUntil(this.itIsDestroyed)
-                .subscribe(() => {
-                    this.isLoading = false;
+                this.authService.loggedInFailure$
+                    .take(1)
+                    .takeUntil(this.itIsDestroyed)
+                    .subscribe(() => {
+                        this.isLoading = false;
 
-                    this.recaptcha.reset();
-                    this.messagesService.showMessage('Something went wrong', 'DANGER');
-                });
+                        this.recaptcha.reset();
+                        this.messagesService.showMessage('Something went wrong', 'DANGER');
+                    });
+            }
         }
     }
 }
