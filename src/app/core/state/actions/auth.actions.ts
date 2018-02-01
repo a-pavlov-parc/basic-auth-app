@@ -20,7 +20,6 @@ export const authActionTypes = {
     AUTH_LOGIN: typeCacheUtil('[Auth] Login'),
     AUTH_LOGIN_SUCCESS: typeCacheUtil('[Auth] Login success'),
     AUTH_LOGIN_FAIL: typeCacheUtil('[Auth] Login fail'),
-    AUTH_SET_TOKEN: typeCacheUtil('[Auth] Set token'),
     AUTH_RESET: typeCacheUtil('[Auth] Reset')
 };
 
@@ -64,12 +63,6 @@ export class AuthLoginFailAction implements Action {
     }
 }
 
-export class AuthSetTokenAction implements Action {
-    type = authActionTypes.AUTH_SET_TOKEN;
-
-    constructor(public payload: string) {}
-}
-
 export class AuthResetAction implements Action {
     type = authActionTypes.AUTH_RESET;
 }
@@ -84,6 +77,5 @@ export type AuthActions = [
     AuthCheckHasNoTokenAction,
     AuthLoginSuccessAction,
     AuthLoginFailAction,
-    AuthSetTokenAction,
     AuthResetAction
 ];

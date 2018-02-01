@@ -12,16 +12,13 @@ export class TokenService {
         return <string>this.localStorageService.get(storageAuthTokenField);
     }
 
-    set token(token) {
-        this.localStorageService.set(storageAuthTokenField, token);
-    }
-
     get hasToken(): boolean {
         return !isEmpty(this.token);
     }
 
     remove() {
         this.localStorageService.remove(storageAuthTokenField);
+        this.localStorageService.remove(storageXsrfTokenField);
     }
 
     setTokens({ falkonToken, xsrfToken }) {

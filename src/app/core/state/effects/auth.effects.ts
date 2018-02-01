@@ -44,11 +44,6 @@ export class AuthEffects {
             ];
         });
 
-    @Effect({ dispatch: false }) setToken$: Observable<any> = this.actions$
-        .ofType(fromAuthActions.authActionTypes.AUTH_SET_TOKEN)
-        .map((action: fromAuthActions.AuthSetTokenAction) => action.payload)
-        .do((token) => this.tokenService.token = token);
-
     @Effect({ dispatch: false }) reset$: Observable<Action> = this.actions$
         .ofType(fromAuthActions.authActionTypes.AUTH_RESET, fromUserActions.userActionTypes.USER_LOAD_CURRENT_USER_FAIL)
         .do(() => {
