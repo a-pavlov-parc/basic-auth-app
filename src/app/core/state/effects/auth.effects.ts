@@ -44,10 +44,11 @@ export class AuthEffects {
             ];
         });
 
-    @Effect({ dispatch: false }) reset$: Observable<Action> = this.actions$
+    @Effect() reset$: Observable<Action> = this.actions$
         .ofType(fromAuthActions.authActionTypes.AUTH_RESET, fromUserActions.userActionTypes.USER_LOAD_CURRENT_USER_FAIL)
         .do(() => {
             this.tokenService.remove();
             this.router.navigate(['/signin']);
-        });
+        })
+        .map(() => new fromUserActions.UserReset());
 }
