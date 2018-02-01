@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 // modules
 import { SharedModule } from '@shared/shared.module';
@@ -18,6 +19,7 @@ import { LoginPageComponent } from './components/login-page/login-page.component
         MainRoutingModule,
         CoreModule.forRoot(),
         UserModule.forRoot(),
+        RecaptchaModule.forRoot()
     ],
     declarations: [
         AppComponent,

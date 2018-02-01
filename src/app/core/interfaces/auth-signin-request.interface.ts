@@ -1,5 +1,5 @@
 export interface IAuthSignInRequest {
     username: string;
-    password: string;
+    passwordMd5: string;
     captcha: string;
 }

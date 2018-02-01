@@ -16,8 +16,6 @@ export class AuthService {
     redirectUrl: string;
     loggedInSuccessfully$: Observable<Action> = this.actions$.ofType(fromAuthActions.authActionTypes.AUTH_LOGIN_SUCCESS);
     loggedInFailure$: Observable<HttpErrorResponse> = this.actions$.ofType(fromAuthActions.authActionTypes.AUTH_LOGIN_FAIL).map((action: AuthLoginFailAction) => action.payload);
-    signedUpSuccessfully$: Observable<Action> = this.actions$.ofType(fromAuthActions.authActionTypes.AUTH_SIGN_UP_SUCCESS);
-    signedUpFailure$: Observable<HttpErrorResponse> = this.actions$.ofType(fromAuthActions.authActionTypes.AUTH_SIGN_UP_FAIL).map((action: AuthSignUpFailAction) => action.payload);
     isAuthorised$: Observable<boolean>;
 
     constructor(
@@ -34,10 +32,6 @@ export class AuthService {
 
     login(credentials: IAuthSignInRequest) {
         this.store.dispatch(new authActions.AuthLoginAction(credentials));
-    }
-
-    signUp(user: IAuthSignUpRequest) {
-        this.store.dispatch(new authActions.AuthSignUpAction(user));
     }
 
     checkInitialState() {

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RecaptchaComponent } from 'ng-recaptcha/recaptcha/recaptcha.component';
+import * as md5 from 'md5';
 
 import { AuthService } from '../../../core/services/auth.service';
 import { IsDestroyedMixin } from '../../../shared/mixins/is-destroyed.mixin';
@@ -11,6 +13,7 @@ import { MessagesService } from '../../../core/services/messages.service';
     styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent extends IsDestroyedMixin implements OnInit {
+    @ViewChild(RecaptchaComponent) recaptcha:  RecaptchaComponent;
     form: FormGroup;
     formSubmitted: boolean = false;
     isLoading: boolean = false;
@@ -25,16 +28,19 @@ export class LoginPageComponent extends IsDestroyedMixin implements OnInit {
 
     ngOnInit() {
         this.form = this.formBuilder.group({
-            email: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-            password: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+            username: ['', Validators.required],
+            passwordMd5: ['', Validators.required]
         });
     }
 
-    login() {
+    login(captchaResponse: string) {
         this.formSubmitted = true;
 
         if (this.form.valid) {
-            this.authService.login(this.form.value);
+            this.authService.login(Object.assign({}, this.form.value, {
+                passwordMd5: md5(this.form.value.passwordMd5),
+                captcha: captchaResponse
+            }));
 
             this.isLoading = true;
 
@@ -44,7 +50,8 @@ export class LoginPageComponent extends IsDestroyedMixin implements OnInit {
                 .subscribe(() => {
                     this.isLoading = false;
 
-                  this.messagesService.showMessage('Something went wrong', 'DANGER');
+                    this.recaptcha.reset();
+                    this.messagesService.showMessage('Something went wrong', 'DANGER');
                 });
         }
     }
